@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%-include('./inc/head')%>
+</head>
+
+<body>
+  <%-include('./inc/nav')%>
+  <section>
+    <form action="/search" method="post">
+      <div class="search-container">
+        <input type="text" placeholder="Ara..." name="search">
+          <button type="submit" class="search">
+            <i  class="fa fa-search"></i>
+          </button>
+        </div>
+    </form>
+  </section>
+  <section>
+    <%-include('./filter.ejs')%>
+    <div class="article-list">
+      <div class="article-item header">
+        <div onclick="sortTable(0)">Yayın ID</div>
+        <div onclick="sortTable(1)">Yazar</div>
+        <div onclick="sortTable(2)">Yayımlanma Tarihi</div>
+        <div onclick="sortTable(3)">Yayın Adı</div>
+        <div onclick="sortTable(4)">Yayın Türü</div>
+        <div onclick="sortTable(5)">Anahtar Kelimeler</div>
+      </div>
+      <% articles.forEach(article => {%>
+      <div class="article-item">
+        <div><a href="/article/<%=article._id%>"><%=article.yayin_id%></a></div>
+        <div><%=article.yazarlar%></div>
+        <div><%=article.yayimlanma_tarihi%></div>
+        <div><%=article.yayin_adi%></div>
+        <div><%=article.yayin_turu%></div>
+        <div><%=article.keywords%></div>
+      </div>
+      <% })%>
+    </div>
+  </section>
+  <script>
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.querySelector(".article-list");
+        switching = true;
+        dir = "asc"; 
+        while (switching) {
+            switching = false;
+            rows = table.getElementsByClassName("article-item");
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("div")[n];
+                y = rows[i + 1].getElementsByTagName("div")[n];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount ++;      
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+    </script>
+</body>
+
+</html>

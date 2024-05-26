@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include('./inc/head')%>
+    <style>
+        body-section {
+        display: grid;
+        width: 1400px;
+        max-width: 85vw;
+        margin: 40px auto;
+        padding: 50px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+    </style>
+</head>
+<body>
+    <%-include('./inc/nav')%>
+    <body-section>
+        <h1 class="baslik"><%=article.yayin_adi%></h1>
+        <h3>Yayın ID: </h3>
+        <p><%=article.yayin_id%></p>
+        <h3>Yayımlanma Tarihi: </h3>
+        <p><%=article.yayimlanma_tarihi%></p>
+        <h3>Yazarlar: </h3>
+        <p><%=article.yazarlar%></p>
+        <h3>Yayın Türü: </h3>
+        <p><%=article.yayin_turu%></p>
+        <h3>Anahtar Kelimeler: </h3>
+        <p><%=article.keywords%></p>
+        <h3>URL: </h3>
+        <p><a href="<%=article.url_adresi%>"><%=article.url_adresi%></a></p>
+        <h3>Yayıncı Adı: </h3>
+        <p><%=article.yayinci_adi%></p>
+        <h3>Pdf Anahtar Kelimeleri: </h3>
+        <p><%=article.anahtar_kelimeler%></p>
+        <h3>Özet: </h3>
+        <p><%=article.ozet%></p>
+        <h3>Referanslar: </h3>
+        <p><%=article.referanslar%></p>
+        <h3>Alıntı Sayısı: </h3>
+        <p><%=article.alinti_sayisi%></p>
+        <h3>DOI Numarası: </h3>
+        <%=article.doi_numarasi%>
+    </body-section>
+</body>
+</html>

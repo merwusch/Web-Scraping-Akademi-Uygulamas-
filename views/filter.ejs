@@ -1,0 +1,42 @@
+<div class="filter">
+    <!-- Filtreleme için alan -->
+    <h3>Filtrele</h3>
+    <% if (articles.length > 0) { %>
+        <% Object.keys(articles[0]._doc).forEach((key, keyIndex) => { %>
+            <button class="collapsible"><%=key%></button>
+            <div class="content">
+                <form method="get" action="/filter">
+                    <!-- Filtreleme formu -->
+                    <% 
+                    let uniqueValues = new Set();
+                    articles.forEach((article, articleIndex) => { 
+                        uniqueValues.add(article[key]);
+                    });
+                    Array.from(uniqueValues).forEach((value, valueIndex) => { %>
+                        <div class="filterOptions">
+                            <input type="checkbox" id="option<%=keyIndex%><%=valueIndex%>" name="<%=key%>" value="<%=value%>">
+                            <label for="option<%=keyIndex%><%=valueIndex%>"><%=value%></label><br>
+                        </div>
+                    <% }) %>
+                    <input type="submit" value="Filtrele">
+                </form>
+            </div>
+        <% }) %>
+    <% } %>
+    <a href="/filter" class="search">Filtrele</a>
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight){
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+</div>
